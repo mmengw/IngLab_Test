@@ -1,0 +1,71 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <style>
+        table {
+            border: 1px solid black;
+        }
+
+        table th {
+            border: 1px solid black;
+        }
+
+        table tr td {
+            margin: 0 auto;
+            font-size: large;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <table id='table'>
+            <tr>
+                <th>No</th>
+                <th>Phone Number</th>
+                <th>Amount (RM)</th>
+            </tr>
+
+            <script>
+                $(document).ready(function () {
+
+                    $.getJSON("phoneBill.json",
+                        function (data) {
+
+                            var amount = 0;
+                            $.each(data, function (key, value) {
+                                var record = "<tr><td>" + (key + 1) +
+                                    "</td><td>" + value.sentNumber +
+                                    "</td><td>" + value.amount + "</td></tr>";
+                                $('#table').append(record);
+                                amount += Number(value.amount);
+                            });
+                            var total = "<tr><td></td><td>" + "Total" +
+                                "</td><td>" + amount.toFixed(2) + "</td>";
+                            $('#table').append(total);
+
+                        });
+
+                }); 
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $.getJSON("./JSON/phoneBill.json",
+                        function (data) {
+                            var amount = 0;
+                            $.each(data, function (key, value) {
+                                amount += value.amount;
+                            })
+                            var TAmount = "<tr><td>" + 'total' + "</td><td>" + amount + "</td></tr>";
+                            $('#table').append(TAMount);
+                        })
+                });
+            </script>
+    </section>
+</body>
+
+</html>
